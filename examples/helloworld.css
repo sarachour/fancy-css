@@ -1,0 +1,28 @@
+.inspect-x {
+  background-color: green;
+  width: 3em; }
+
+[class^='inst'] {
+  position: absolute;
+  top: 0;
+  left: 0; }
+
+[class^='inst'] ~ div {
+  background: lightgreen;
+  position: absolute;
+  top: 0;
+  left: 25; }
+
+[class^='inst']:checked ~ div, [class^='inst']:checked {
+  display: none; }
+
+.inst0, .inst0 ~ div {
+  z-index: 0; }
+
+.inst1, .inst1 ~ div {
+  z-index: -1; }
+
+.inst2, .inst2 ~ div {
+  z-index: -2; }
+
+/*# sourceMappingURL=helloworld.css.map */

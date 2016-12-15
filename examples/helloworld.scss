@@ -1,0 +1,30 @@
+
+.inspect-x {
+  background-color:green;
+  width:3em;
+}
+
+[class^='inst'] {
+  position:absolute;
+  top:0;
+  left:0;
+}
+[class^='inst'] ~ div {
+  background:lightgreen;
+  position:absolute;
+  top:0;
+  left:25;
+
+}
+[class^='inst']:checked ~ div,[class^='inst']:checked {
+  display:none;
+}
+
+
+@for $i from 0 through 2 {
+    .inst#{$i},.inst#{$i} ~ div {
+    z-index:-$i
+  }
+}
+
+
