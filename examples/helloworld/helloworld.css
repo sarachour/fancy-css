@@ -1,0 +1,51 @@
+.mem {
+  --fancy-x: 5px;
+  --fancy-y: 5px;
+  --fancy-z: 0px; }
+
+.inspect-x {
+  background-color: lightgreen;
+  width: var(--fancy-x); }
+
+.inspect-y {
+  background-color: lightblue;
+  width: var(--fancy-y); }
+
+.inspect-z {
+  background-color: lightblue;
+  width: var(--fancy-z); }
+
+[class^='inst'] {
+  position: absolute;
+  top: 0;
+  left: 0; }
+
+.inst0:checked ~ .mem {
+  --fancy-x: 100px;
+  background-color: black; }
+
+.inst1:checked ~ .mem {
+  --fancy-y: 50px; }
+
+.inst2:checked ~ .mem {
+  --fancy-x: 25px; }
+
+.inst3:checked ~ .mem {
+  --fancy-z: calc(var(--fancy-x) + var(--fancy-y)); }
+
+[class^='inst']:checked {
+  display: none; }
+
+.inst0 {
+  z-index: 0; }
+
+.inst1 {
+  z-index: -1; }
+
+.inst2 {
+  z-index: -2; }
+
+.inst3 {
+  z-index: -3; }
+
+/*# sourceMappingURL=helloworld.css.map */
