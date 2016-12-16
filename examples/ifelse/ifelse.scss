@@ -1,0 +1,100 @@
+:root {
+    --fancy-input:"";
+}
+// x = 3, y=4
+.mem {
+    --fancy-x:0px;
+    --fancy-y:0px;
+    --fancy-z:0px;
+}
+.inspect-x {
+    background-color:lightgreen;
+    width:var(--fancy-x);
+}
+
+.inspect-y {
+    background-color:lightblue;
+    width:var(--fancy-y);
+}
+.inspect-z {
+    background-color:lightblue;
+    width:var(--fancy-z);
+}
+
+[class^='inst'] {
+  position:absolute;
+  top:0;
+  left:0;
+}
+
+//read from input
+.inst0:checked ~ .mem {
+    --fancy-x : 15px;
+}
+
+//occurances of x preceded by y : y~x
+.inst1:checked ~ .mem {
+    --fancy-y : 20px;
+}
+
+.cond0 {
+    width:50px;
+    height:50px;
+    background-color:black;
+}
+//do the comparison x+y >= 50 and set if cond is true. This means that (x+y-50) >= 0
+.inst2:checked ~ .mem {
+    --fancy-left: calc(var(--fancy-x) + var(--fancy-y));
+    //--fancy-left: 65px;
+    --fancy-right: 50px;
+    --fancy-z: var(--fancy-left);
+}
+.inst2:checked ~ .cond0 {
+    //--fancy-left: 65px;
+    min-width:0;
+    min-height:0;
+    width:calc(var(--fancy-left) - var(--fancy-right));
+    height:calc(var(--fancy-left) - var(--fancy-right));
+}
+
+
+//condition is true
+.cond0:visible ~ .else0 {
+    display:none;
+}
+
+//condition is false
+.cond0:not(visible) ~ .if0 {
+    display:none;
+}
+
+.inst3:checked ~ .mem {
+    --fancy-z: calc(var(--fancy-x)+var(--fancy-y));
+}
+
+.inst4:checked ~ .mem {
+    --fancy-z: calc(var(--fancy-x)+var(--fancy-y));
+}
+
+
+.inst5:checked ~ .mem {
+    --fancy-z: var(--fancy-x) ;
+}
+
+.inst6:checked ~ .mem {
+    --fancy-z: var(--fancy-y) ;
+
+}
+//hide checked boxes
+[class^='inst']:checked  {
+  display:none;
+}
+
+
+@for $i from 0 through 6 {
+    .inst#{$i} {
+    z-index:-$i
+  }
+}
+
+
