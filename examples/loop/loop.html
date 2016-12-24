@@ -1,24 +1,39 @@
 <head>
 
-    <link rel="stylesheet" type="text/css" href="ifelse.css">
+    <link rel="stylesheet" type="text/css" href="loop.css">
 </head>
 <body>
-    <h1>Hello World Example</h1>
-    <div> 
+    <div class="ctx">
 
-        <input type="checkbox" class="inst0 c0"/>
-        <input type="checkbox" class="inst1 c1"/>
-        <input type="checkbox" class="inst2 c2"/>
-        <div class="mem cond0"></div>
-        <input type="checkbox" class="inst3 if0 c3"/>
-        <input type="checkbox" class="inst4 if0 c4"/>
-        <input type="checkbox" class="inst5 else0 c5"/>
-        <input type="checkbox" class="inst6 else0 c5"/>
+        <!-- override the visibility. if override is on, it isn't hidden -->
+        <!--
+             loops need a write local state operator
+             the body (which operates on the local state)
+             the loop then needs to write to global state again.
+             this one stays on during the first instruction of the next iteration
+        -->
+        <!-- while(true loop 0, loop 1) -->
+ 
+       <input type="checkbox" class="inst0"/>
+        <input type="checkbox" class="inst1"/>
+        <!-- the toggle: check inst1 -> uncheck inst2 -->
+        <!-- the loop body -->
+        <div id="none"></div>
+        <input id="inst3" type="checkbox" class="inst3 loop0"/>
+        <input type="checkbox" class="inst4 loop0"/>
+        <!-- jump -->
+        <a href="#none" class="inst5">clear</a>
+        <a href="#inst3" class="inst6">loop</a>
         
-        <div class="mem">
-           <div class="inspect-x">x</div>
+        <!-- is visible as long as the loop is valid -->
+        <div class="loop0-valid"></div>
+        <div style="position:absolute;top:10em;" class="mem">
+            <div id="var-x"></div>
+            <div id="var-y"></div>
+            <div class="inspect-x">x</div>
            <div class="inspect-y">y</div>
-           <div class="inspect-z">z</div>
+           <div class="inspect-xtmp">xtmp</div>
+           <div class="inspect-ytmp">ytmp</div>
         </div>
         
     </div>

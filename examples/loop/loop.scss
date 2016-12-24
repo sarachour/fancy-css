@@ -1,100 +1,129 @@
-:root {
-    --fancy-input:"";
-}
 // x = 3, y=4
 .mem {
     --fancy-x:0px;
     --fancy-y:0px;
-    --fancy-z:0px;
+    --fancy-tmp-x:0px;
+    --fancy-tmp-y:0px;
+    --fancy-x-loop:0px;
+    --fancy-y-loop:0px;
 }
+
 .inspect-x {
     background-color:lightgreen;
-    width:var(--fancy-x);
+    width:var(--fancy-x-loop);
 }
-
 .inspect-y {
-    background-color:lightblue;
-    width:var(--fancy-y);
+    background-color:lightgreen;
+    width:var(--fancy-y-loop);
 }
-.inspect-z {
-    background-color:lightblue;
-    width:var(--fancy-z);
+.inspect-xtmp {
+    background-color:lightgreen;
+    width:var(--fancy-tmp-x);
 }
-
+.inspect-ytmp {
+    background-color:lightgreen;
+    height:var(--fancy-tmp-y);
+}
 [class^='inst'] {
   position:absolute;
-  top:0;
-  left:0;
-}
+  top:0em;
+  left:0em;
+  width:1em;
+  height:1em;
+  padding:0.1em;
+  background-color:white;
 
+}
+input {
+    -webkit-transform:scale(5);
+}
 //read from input
 .inst0:checked ~ .mem {
+    --fancy-y : 30px;
     --fancy-x : 15px;
 }
-
-//occurances of x preceded by y : y~x
 .inst1:checked ~ .mem {
-    --fancy-y : 20px;
+    --fancy-tmp-x: var(--fancy-x) ;
+    --fancy-tmp-y: var(--fancy-y) ;
+
 }
 
-.cond0 {
-    width:50px;
-    height:50px;
-    background-color:black;
-}
-//do the comparison x+y >= 50 and set if cond is true. This means that (x+y-50) >= 0
-.inst2:checked ~ .mem {
-    --fancy-left: calc(var(--fancy-x) + var(--fancy-y));
-    //--fancy-left: 65px;
-    --fancy-right: 50px;
-    --fancy-z: var(--fancy-left);
-}
-.inst2:checked ~ .cond0 {
-    //--fancy-left: 65px;
-    min-width:0;
-    min-height:0;
-    width:calc(var(--fancy-left) - var(--fancy-right));
-    height:calc(var(--fancy-left) - var(--fancy-right));
-}
-
-
-//condition is true
-.cond0:visible ~ .else0 {
-    display:none;
-}
-
-//condition is false
-.cond0:not(visible) ~ .if0 {
-    display:none;
-}
 
 .inst3:checked ~ .mem {
-    --fancy-z: calc(var(--fancy-x)+var(--fancy-y));
+    --fancy-x-loop: var(--fancy-tmp-x) ;
+    --fancy-y-loop: var(--fancy-tmp-y) ;
 }
-
 .inst4:checked ~ .mem {
-    --fancy-z: calc(var(--fancy-x)+var(--fancy-y));
+    --fancy-y-loop : calc(var(--fancy-tmp-y) + 100px);
+}
+
+.inst3:visible ~ .loop0 {
+    display:block;
 }
 
 
-.inst5:checked ~ .mem {
-    --fancy-z: var(--fancy-x) ;
+//as long as we're targeting inst3, including inst4
+#inst3:target:checked {
+    background-color:red;
+    display:block;
+}
+#inst3:target:not(:checked) {
+    background-color:red;
+    display:block;
+    pointer-events:none;
+}
+//we need to reset the loop
+#inst3:target ~ .inst4:not(:checked) {
+    background-color:red;
+    display:block;
+    pointer-events:none;
+}
+//we need to reset the 
+#inst3:target ~ .inst4:checked {
+    background-color:red;
+    display:block;
+}
+//loop clear
+#inst3:target ~ .inst5 {
+    display:block;
+}
+#inst3:not(:target) ~ .inst5 {
+    display:none;
+}
+/*clear*/
+#inst3:target ~ .inst6 {
+    display:none;
+}
+#inst3:not(:target) ~ .inst6 {
+    display:block;
+}
+/*write the data as long as its the target*/
+#inst3:target ~ .mem {
+    --fancy-tmp-x:var(--fancy-x-loop) px;
+    --fancy-tmp-y:var(--fancy-y-loop) px;
 }
 
-.inst6:checked ~ .mem {
-    --fancy-z: var(--fancy-y) ;
-
+#inst3:target ~ .loop0:checked {
+    background-color:red;
 }
+//p ~ ul	Selects every <ul> element that are preceded by a <p> element
+
+
+
 //hide checked boxes
-[class^='inst']:checked  {
-  display:none;
-}
-
-
+//replayable code can have the visibility overridden by an override code.
 @for $i from 0 through 6 {
+    //.override#{$i}:not(:visible) ~ .inst#{$i}:checked {
+    .inst#{$i}:checked {
+        display:none;
+    }
     .inst#{$i} {
-    z-index:-$i
-  }
+        z-index:-$i;
+    }
+
 }
+
+
+
 
 
