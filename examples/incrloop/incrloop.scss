@@ -1,0 +1,78 @@
+// x = 3, y=4
+.mem-ctx {
+    --fancy-x:0px;
+    --fancy-y:0px;
+    --fancy-tmp-x:0px;
+    --fancy-tmp-y:0px;
+    --fancy-x-loop:0px;
+    --fancy-y-loop:0px;
+	position:absolute;
+	top:3em;
+}
+
+.var-x {
+    background-color:lightgreen;
+    width:var(--fancy-x);
+}
+.var-x-tmp {
+    background-color:lightgreen;
+    width:var(--fancy-x-tmp);
+}
+.var-x-state {
+    background-color:lightgreen;
+    width:var(--fancy-x-state);
+}
+[class^='inst'] {
+  position:absolute;
+  top:0em;
+  left:0em;
+  width:1em;
+  height:1em;
+  padding:0.1em;
+  background-color:white;
+
+}
+input {
+    -webkit-transform:scale(5);
+}
+//read from input
+.inst0:checked ~ .mem-ctx .mem-inst0 {
+    	--fancy-x-state : 15px;
+}
+.inst1:checked ~ .mem-ctx .mem-inst1 {
+	--fancy-x-tmp : --fancy-x-state;
+}
+
+.inst2:checked ~ .mem-ctx .mem-inst2 {
+	--fancy-x : calc(var(--fancy-x-tmp) + 15px);
+}
+.inst3:checked ~ .mem-ctx .mem-inst3 {
+	--fancy-x-state : var(--fancy-x);
+}
+.inst4:checked ~ .mem {
+    --fancy-y-loop : calc(var(--fancy-tmp-y) + 100px);
+}
+
+.inst3:visible ~ .loop0 {
+    display:block;
+}
+
+
+
+//hide checked boxes
+//replayable code can have the visibility overridden by an override code.
+@for $i from 0 through 6 {
+    //.override#{$i}:not(:visible) ~ .inst#{$i}:checked {
+    .inst#{$i}:checked {
+        display:none;
+    }
+    .inst#{$i} {
+        z-index:-$i;
+    }
+
+}
+
+
+
+
+

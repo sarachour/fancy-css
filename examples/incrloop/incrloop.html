@@ -1,0 +1,49 @@
+<head>
+
+    <link rel="stylesheet" type="text/css" href="incrloop.css">
+</head>
+<body>
+    <div class="ctx">
+
+        <!-- override the visibility. if override is on, it isn't hidden -->
+        <!--
+             loops need a write local state operator
+             the body (which operates on the local state)
+             the loop then needs to write to global state again.
+             this one stays on during the first instruction of the next iteration
+        -->
+        <!-- while(true loop 0, loop 1) -->
+	<!---
+	0. i_state = 0
+	LABEL loop:
+	1. i = i_state
+	2. i_tmp = i;
+	3. i = i_tmp + 1;
+	4. i_state = i; jump loop
+	-->	
+       <input type="checkbox" class="inst0"/>
+       <input type="checkbox" id="inst1" class="inst1"/>
+       <input type="checkbox" class="inst2"/>
+       <input type="checkbox" class="inst3"/>
+       <input type="checkbox" class="inst4"/>
+       <a href="#none" class="inst5">clear</a>
+       <a href="#inst3" class="inst6">loop</a>
+        
+        <!-- is visible as long as the loop is valid -->
+	<div class="mem-ctx">
+	<div class="mem-inst0">
+	<div class="mem-inst1">
+	<div class="mem-inst2">
+	<div class="mem-inst3">
+	<div style="position:absolute;top:10em;" class="mem">
+            <div class="var-x">x</div>
+            <div class="var-x-state">x-state</div>
+            <div class="var-x-tmp">x-tmp</div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+    </div>
+</body>
